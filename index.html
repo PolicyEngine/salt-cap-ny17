@@ -605,10 +605,10 @@
                 <span class="slider-title">Adjust SALT cap level</span>
                 <span class="slider-value" id="cap-display">$10,000</span>
             </div>
-            <input type="range" id="salt-slider" min="0" max="50000" step="5000" value="10000">
+            <input type="range" id="salt-slider" min="0" max="40400" step="5000" value="10000">
             <div class="range-labels">
                 <span>$0 (eliminate deduction)</span>
-                <span>$50,000 (raise cap)</span>
+                <span>$40,400 (2026 baseline)</span>
             </div>
         </section>
 
@@ -838,6 +838,7 @@ fig.show()</code></pre>
 
     <script>
         // PolicyEngine computed data
+        // Note: 2026 baseline SALT cap is $40,400 (indexed from TCJA's $10k)
         const impactData = {
             0: { ny17: 19.1, national: 9.1, avgLoss: -476, avgLossAmongLosers: -2495, totalImpact: -282 },
             5000: { ny17: 19.1, national: 8.2, avgLoss: -476, avgLossAmongLosers: -2495, totalImpact: -282 },
@@ -846,8 +847,8 @@ fig.show()</code></pre>
             20000: { ny17: 12.4, national: 4.7, avgLoss: -318, avgLossAmongLosers: -2564, totalImpact: -188 },
             25000: { ny17: 9.1, national: 3.7, avgLoss: -221, avgLossAmongLosers: -2434, totalImpact: -131 },
             30000: { ny17: 8.5, national: 2.3, avgLoss: -134, avgLossAmongLosers: -1579, totalImpact: -79 },
-            40000: { ny17: 4.9, national: 0.3, avgLoss: -4, avgLossAmongLosers: -96, totalImpact: -2 },
-            50000: { ny17: 0.0, national: 0.0, avgLoss: 122, avgLossAmongLosers: 0, totalImpact: 72 },
+            35000: { ny17: 6.1, national: 1.2, avgLoss: -67, avgLossAmongLosers: -1106, totalImpact: -40 },
+            40400: { ny17: 0.0, national: 0.0, avgLoss: 0, avgLossAmongLosers: 0, totalImpact: 0 },
         };
 
         const incomeData = {
