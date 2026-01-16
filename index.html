@@ -3,20 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SALT Cap Impact in Rep. Lawler's District | PolicyEngine</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>SALT Cap Impact in NY-17 | PolicyEngine</title>
+
+    <!-- PolicyEngine Design System Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500&family=Roboto+Serif:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
     <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+
     <style>
+        /* PolicyEngine Design System Tokens */
         :root {
-            --pe-teal-500: #319795;
-            --pe-teal-300: #4FD1C5;
-            --pe-teal-600: #2C7A7B;
-            --pe-gray-700: #344054;
-            --pe-gray-500: #667085;
-            --pe-gray-200: #EAECF0;
+            /* Primary - Teal */
+            --pe-primary-50: #E6FFFA;
+            --pe-primary-100: #B2F5EA;
+            --pe-primary-200: #81E6D9;
+            --pe-primary-300: #4FD1C5;
+            --pe-primary-400: #38B2AC;
+            --pe-primary-500: #319795;
+            --pe-primary-600: #2C7A7B;
+            --pe-primary-700: #285E61;
+            --pe-primary-800: #234E52;
+            --pe-primary-900: #1D4044;
+
+            /* Secondary - Gray */
             --pe-gray-50: #F9FAFB;
-            --pe-red-500: #EF4444;
-            --pe-red-100: #FEE2E2;
+            --pe-gray-100: #F2F4F7;
+            --pe-gray-200: #E2E8F0;
+            --pe-gray-300: #CBD5E1;
+            --pe-gray-400: #94A3B8;
+            --pe-gray-500: #64748B;
+            --pe-gray-600: #475569;
+            --pe-gray-700: #344054;
+            --pe-gray-800: #1E293B;
+            --pe-gray-900: #101828;
+
+            /* Blue */
+            --pe-blue-500: #0EA5E9;
+            --pe-blue-600: #0284C7;
+
+            /* Semantic */
+            --pe-success: #22C55E;
+            --pe-warning: #FEC601;
+            --pe-error: #EF4444;
+            --pe-info: #1890FF;
+
+            /* Background */
+            --pe-bg-primary: #FFFFFF;
+            --pe-bg-secondary: #F5F9FF;
+            --pe-bg-tertiary: #F1F5F9;
+
+            /* Text */
+            --pe-text-primary: #000000;
+            --pe-text-secondary: #5A5A5A;
+            --pe-text-tertiary: #9CA3AF;
+
+            /* Border */
+            --pe-border-light: #E2E8F0;
+            --pe-border-medium: #CBD5E1;
+
+            /* Shadow */
+            --pe-shadow-light: rgba(16, 24, 40, 0.05);
+            --pe-shadow-medium: rgba(16, 24, 40, 0.1);
+
+            /* Typography */
+            --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-body: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            --font-chart: 'Roboto Serif', Georgia, "Times New Roman", serif;
+            --font-mono: 'JetBrains Mono', "Fira Code", Consolas, monospace;
         }
 
         * {
@@ -26,229 +81,220 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--pe-gray-50);
-            color: var(--pe-gray-700);
+            font-family: var(--font-body);
+            background: var(--pe-bg-secondary);
+            color: var(--pe-text-primary);
             line-height: 1.6;
+            min-height: 100vh;
         }
 
+        /* Header */
         .header {
-            background: white;
-            border-bottom: 1px solid var(--pe-gray-200);
+            background: var(--pe-bg-primary);
+            border-bottom: 1px solid var(--pe-border-light);
             padding: 1rem 2rem;
             display: flex;
             align-items: center;
             gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
         }
 
         .header img {
-            height: 32px;
+            height: 28px;
         }
 
         .header-text {
+            font-family: var(--font-ui);
             font-size: 0.875rem;
-            color: var(--pe-gray-500);
+            font-weight: 500;
+            color: var(--pe-text-secondary);
         }
 
-        .container {
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--pe-primary-900) 0%, var(--pe-primary-700) 50%, var(--pe-primary-600) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(79, 209, 197, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(56, 178, 172, 0.1) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .hero-content {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            position: relative;
+            z-index: 1;
         }
 
-        .hero {
-            text-align: center;
-            margin-bottom: 3rem;
+        .hero-eyebrow {
+            font-family: var(--font-ui);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--pe-primary-200);
+            margin-bottom: 1rem;
         }
 
         .hero h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--pe-gray-700);
-            margin-bottom: 0.5rem;
+            font-family: var(--font-chart);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 0.75rem;
+            max-width: 800px;
         }
 
         .hero .subtitle {
+            font-family: var(--font-body);
             font-size: 1.25rem;
-            color: var(--pe-gray-500);
-            margin-bottom: 0.5rem;
+            font-weight: 400;
+            color: var(--pe-primary-100);
+            margin-bottom: 2rem;
+            max-width: 600px;
         }
 
-        .hero .context {
-            font-size: 1rem;
-            color: var(--pe-gray-500);
-            margin-bottom: 1.5rem;
+        .hero-stat {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1.25rem 2rem;
+            border-radius: 12px;
         }
 
-        .hero .highlight {
-            display: inline-block;
-            background: var(--pe-red-100);
-            color: var(--pe-red-500);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
+        .hero-stat-value {
+            font-family: var(--font-chart);
+            font-size: 3.5rem;
             font-weight: 600;
-            font-size: 1.5rem;
+            color: white;
+            line-height: 1;
         }
 
+        .hero-stat-label {
+            font-family: var(--font-ui);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--pe-primary-100);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 1.5rem;
             margin-bottom: 3rem;
         }
 
         .stat-card {
-            background: white;
+            background: var(--pe-bg-primary);
             border-radius: 12px;
             padding: 1.5rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--pe-border-light);
+            box-shadow: 0 1px 3px var(--pe-shadow-light);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--pe-shadow-medium);
         }
 
         .stat-card.featured {
-            border: 2px solid var(--pe-teal-500);
+            border-color: var(--pe-primary-500);
+            border-width: 2px;
         }
 
         .stat-label {
-            font-size: 0.875rem;
-            color: var(--pe-gray-500);
-            margin-bottom: 0.5rem;
+            font-family: var(--font-ui);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--pe-text-tertiary);
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
         }
 
         .stat-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--pe-gray-700);
+            font-family: var(--font-chart);
+            font-size: 2.25rem;
+            font-weight: 600;
+            color: var(--pe-text-primary);
+            line-height: 1.2;
         }
 
         .stat-value.negative {
-            color: var(--pe-red-500);
+            color: var(--pe-error);
+        }
+
+        .stat-value.positive {
+            color: var(--pe-success);
         }
 
         .stat-value.teal {
-            color: var(--pe-teal-500);
+            color: var(--pe-primary-500);
         }
 
         .stat-context {
+            font-family: var(--font-body);
             font-size: 0.875rem;
-            color: var(--pe-gray-500);
+            color: var(--pe-text-secondary);
             margin-top: 0.5rem;
         }
 
-        .chart-section {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-        }
-
-        .chart-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .chart-container {
-            width: 100%;
-            height: 400px;
-        }
-
-        .comparison-visual {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 3rem;
-            padding: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .district-comparison {
-            text-align: center;
-        }
-
-        .district-name {
-            font-weight: 600;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .people-grid {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            gap: 4px;
-            width: 200px;
-        }
-
-        .person {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: var(--pe-gray-200);
-            transition: all 0.3s ease;
-        }
-
-        .person.loser {
-            background: var(--pe-red-500);
-        }
-
-        .comparison-arrow {
-            font-size: 2rem;
-            color: var(--pe-gray-500);
-        }
-
-        .methodology {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .methodology h3 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .methodology p {
-            color: var(--pe-gray-500);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .methodology a {
-            color: var(--pe-teal-500);
-            text-decoration: none;
-        }
-
-        .methodology a:hover {
-            text-decoration: underline;
-        }
-
+        /* Slider Section */
         .slider-section {
-            background: white;
+            background: var(--pe-bg-primary);
             border-radius: 12px;
             padding: 2rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--pe-border-light);
+            box-shadow: 0 1px 3px var(--pe-shadow-light);
             margin-bottom: 2rem;
         }
 
-        .slider-label {
+        .slider-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .slider-title {
+            font-family: var(--font-ui);
             font-weight: 600;
+            color: var(--pe-text-primary);
         }
 
         .slider-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--pe-teal-500);
+            font-family: var(--font-chart);
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--pe-primary-500);
         }
 
         input[type="range"] {
@@ -258,6 +304,7 @@
             background: var(--pe-gray-200);
             outline: none;
             -webkit-appearance: none;
+            cursor: pointer;
         }
 
         input[type="range"]::-webkit-slider-thumb {
@@ -265,52 +312,248 @@
             width: 24px;
             height: 24px;
             border-radius: 50%;
-            background: var(--pe-teal-500);
+            background: var(--pe-primary-500);
             cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 8px rgba(49, 151, 149, 0.4);
+            transition: transform 0.15s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
         }
 
         .range-labels {
             display: flex;
             justify-content: space-between;
-            margin-top: 0.5rem;
+            margin-top: 0.75rem;
+            font-family: var(--font-ui);
             font-size: 0.75rem;
-            color: var(--pe-gray-500);
+            color: var(--pe-text-tertiary);
         }
 
+        /* Chart Sections */
+        .chart-section {
+            background: var(--pe-bg-primary);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--pe-border-light);
+            box-shadow: 0 1px 3px var(--pe-shadow-light);
+            margin-bottom: 2rem;
+        }
+
+        .chart-title {
+            font-family: var(--font-chart);
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--pe-text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 400px;
+        }
+
+        /* People Grid Comparison */
+        .comparison-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4rem;
+            padding: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .district-comparison {
+            text-align: center;
+        }
+
+        .district-name {
+            font-family: var(--font-ui);
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--pe-text-primary);
+            margin-bottom: 1.25rem;
+        }
+
+        .people-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 5px;
+            width: 220px;
+            margin: 0 auto;
+        }
+
+        .person {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--pe-gray-200);
+            transition: all 0.3s ease;
+        }
+
+        .person.loser {
+            background: var(--pe-error);
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
+        }
+
+        .comparison-arrow {
+            font-size: 2rem;
+            color: var(--pe-gray-400);
+        }
+
+        .grid-label {
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            color: var(--pe-text-secondary);
+            margin-top: 1rem;
+        }
+
+        /* Methodology Section */
+        .methodology {
+            background: var(--pe-bg-primary);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--pe-border-light);
+            box-shadow: 0 1px 3px var(--pe-shadow-light);
+            margin-top: 2rem;
+        }
+
+        .methodology h3 {
+            font-family: var(--font-chart);
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--pe-text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .methodology p {
+            font-family: var(--font-body);
+            color: var(--pe-text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .methodology a {
+            color: var(--pe-primary-500);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .methodology a:hover {
+            text-decoration: underline;
+        }
+
+        .methodology code {
+            font-family: var(--font-mono);
+            background: var(--pe-gray-100);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        /* Code Blocks */
+        details {
+            margin-top: 1.5rem;
+        }
+
+        details summary {
+            cursor: pointer;
+            font-family: var(--font-ui);
+            font-weight: 500;
+            color: var(--pe-primary-600);
+            padding: 0.75rem 0;
+            transition: color 0.15s ease;
+        }
+
+        details summary:hover {
+            color: var(--pe-primary-500);
+        }
+
+        details pre {
+            background: var(--pe-gray-900);
+            color: #E2E8F0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin-top: 0.75rem;
+        }
+
+        .output-block {
+            background: var(--pe-gray-50);
+            border: 1px solid var(--pe-border-light);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+
+        /* Syntax Highlighting */
+        .kw { color: #C586C0; }
+        .mod { color: #4EC9B0; }
+        .str { color: #CE9178; }
+        .num { color: #B5CEA8; }
+        .fn { color: #DCDCAA; }
+        .cmt { color: #6A9955; }
+        .var { color: #9CDCFE; }
+
+        /* Footer */
         .footer {
             text-align: center;
-            padding: 2rem;
-            color: var(--pe-gray-500);
+            padding: 3rem 2rem;
+            font-family: var(--font-ui);
             font-size: 0.875rem;
+            color: var(--pe-text-secondary);
         }
 
         .footer a {
-            color: var(--pe-teal-500);
+            color: var(--pe-primary-500);
+            text-decoration: none;
         }
 
-        .baseline-note {
-            background: #FEF3C7;
-            border: 1px solid #F59E0B;
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 2rem;
-            font-size: 0.9rem;
+        .footer a:hover {
+            text-decoration: underline;
         }
 
-        .baseline-note strong {
-            color: #92400E;
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+
             .hero h1 {
                 font-size: 1.75rem;
             }
-            .container {
-                padding: 1rem;
+
+            .hero-stat {
+                padding: 1rem 1.5rem;
             }
+
+            .hero-stat-value {
+                font-size: 2.5rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
             .comparison-visual {
-                gap: 1.5rem;
+                gap: 2rem;
+            }
+
+            .people-grid {
+                width: 180px;
+            }
+
+            .person {
+                width: 14px;
+                height: 14px;
             }
         }
     </style>
@@ -321,50 +564,50 @@
         <span class="header-text">Policy Impact Analysis</span>
     </header>
 
-    <div class="container">
-        <section class="hero">
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-eyebrow">Congressional District Analysis</div>
             <h1>Cutting the SALT cap to $10,000</h1>
-            <p class="subtitle">Impact on Rep. Mike Lawler's NY-17 district</p>
-            <p class="context">Compared to the current 2026 baseline cap of ~$40,000</p>
-            <div class="highlight" id="main-highlight">19.1% would lose money</div>
-        </section>
-
-        <div class="baseline-note">
-            <strong>Baseline:</strong> This analysis compares a $10k SALT cap to the 2026 projected cap of ~$40,400
-            (indexed from the original $10k TCJA cap). Reducing the cap would increase taxes for high-SALT filers.
+            <p class="subtitle">How Rep. Mike Lawler's NY-17 constituents would be affected compared to the national average</p>
+            <div class="hero-stat">
+                <span class="hero-stat-value" id="main-stat">19.1%</span>
+                <span class="hero-stat-label">of NY-17 residents<br>would lose money</span>
+            </div>
         </div>
+    </section>
 
+    <div class="container">
         <section class="stats-grid">
             <div class="stat-card featured">
                 <div class="stat-label">Share who would lose</div>
                 <div class="stat-value negative" id="loser-share">19.1%</div>
-                <div class="stat-context" id="loser-context">vs 8.0% nationally (2.4x higher)</div>
+                <div class="stat-context" id="loser-context">vs 8.0% nationally (2.4× higher)</div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">Average change per person</div>
-                <div class="stat-value negative" id="avg-loss">-$476</div>
+                <div class="stat-value negative" id="avg-loss">−$476</div>
                 <div class="stat-context">Across all district residents</div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">Average loss among losers</div>
-                <div class="stat-value negative" id="avg-loss-losers">-$2,496</div>
+                <div class="stat-value negative" id="avg-loss-losers">−$2,496</div>
                 <div class="stat-context">For those who are affected</div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">Total district impact</div>
-                <div class="stat-value negative" id="total-impact">-$282M</div>
+                <div class="stat-value negative" id="total-impact">−$282M</div>
                 <div class="stat-context">Annual change</div>
             </div>
         </section>
 
         <section class="slider-section">
-            <div class="slider-label">
-                <span class="slider-title">Adjust SALT cap</span>
+            <div class="slider-header">
+                <span class="slider-title">Adjust SALT cap level</span>
                 <span class="slider-value" id="cap-display">$10,000</span>
             </div>
             <input type="range" id="salt-slider" min="0" max="50000" step="5000" value="10000">
             <div class="range-labels">
-                <span>$0 (eliminate)</span>
+                <span>$0 (eliminate deduction)</span>
                 <span>$50,000 (raise cap)</span>
             </div>
         </section>
@@ -375,13 +618,13 @@
                 <div class="district-comparison">
                     <div class="district-name">NY-17 (Lawler)</div>
                     <div class="people-grid" id="ny17-grid"></div>
-                    <div class="stat-context" style="margin-top: 1rem;"><span id="ny17-count">19</span> out of 100 lose</div>
+                    <div class="grid-label"><span id="ny17-count">19</span> out of 100 lose</div>
                 </div>
                 <div class="comparison-arrow">→</div>
                 <div class="district-comparison">
                     <div class="district-name">National average</div>
                     <div class="people-grid" id="national-grid"></div>
-                    <div class="stat-context" style="margin-top: 1rem;"><span id="national-count">8</span> out of 100 lose</div>
+                    <div class="grid-label"><span id="national-count">8</span> out of 100 lose</div>
                 </div>
             </div>
         </section>
@@ -416,78 +659,76 @@
             </p>
         </section>
 
-        <section class="methodology" style="margin-top: 2rem;">
+        <section class="methodology">
             <h3>Appendix: Python code</h3>
             <p>Install PolicyEngine with <code>pip install policyengine-us</code>, then run:</p>
-            <details>
-                <summary style="cursor: pointer; color: var(--pe-teal-500); font-weight: 500; margin: 1rem 0;">
-                    Click to expand full code
-                </summary>
-                <pre style="background: #1e1e1e; color: #d4d4d4; padding: 1.5rem; border-radius: 8px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin-top: 1rem;"><code><span style="color: #c586c0;">from</span> <span style="color: #4ec9b0;">policyengine_us</span> <span style="color: #c586c0;">import</span> Microsimulation
-<span style="color: #c586c0;">from</span> <span style="color: #4ec9b0;">policyengine_core.reforms</span> <span style="color: #c586c0;">import</span> Reform
 
-<span style="color: #6a9955;"># 1. Load district data for NY-17 (Mike Lawler's district)</span>
-district = <span style="color: #ce9178;">"NY-17"</span>
+            <details>
+                <summary>Click to expand main analysis code</summary>
+                <pre><code><span class="kw">from</span> <span class="mod">policyengine_us</span> <span class="kw">import</span> Microsimulation
+<span class="kw">from</span> <span class="mod">policyengine_core.reforms</span> <span class="kw">import</span> Reform
+
+<span class="cmt"># 1. Load district data for NY-17 (Mike Lawler's district)</span>
+district = <span class="str">"NY-17"</span>
 baseline = Microsimulation(
-    dataset=<span style="color: #ce9178;">f'hf://policyengine/policyengine-us-data/districts/</span><span style="color: #569cd6;">{district}</span><span style="color: #ce9178;">.h5'</span>
+    dataset=<span class="str">f'hf://policyengine/policyengine-us-data/districts/{district}.h5'</span>
 )
 
-<span style="color: #6a9955;"># 2. Define reform - cut SALT cap to $10k</span>
+<span class="cmt"># 2. Define reform - cut SALT cap to $10k</span>
 reform = Reform.from_dict({
-    <span style="color: #ce9178;">'gov.irs.deductions.itemized.salt_and_real_estate.cap.SINGLE'</span>: {
-        <span style="color: #ce9178;">'2026-01-01.2100-12-31'</span>: <span style="color: #b5cea8;">10_000</span>
+    <span class="str">'gov.irs.deductions.itemized.salt_and_real_estate.cap.SINGLE'</span>: {
+        <span class="str">'2026-01-01.2100-12-31'</span>: <span class="num">10_000</span>
     },
-    <span style="color: #ce9178;">'gov.irs.deductions.itemized.salt_and_real_estate.cap.JOINT'</span>: {
-        <span style="color: #ce9178;">'2026-01-01.2100-12-31'</span>: <span style="color: #b5cea8;">10_000</span>
+    <span class="str">'gov.irs.deductions.itemized.salt_and_real_estate.cap.JOINT'</span>: {
+        <span class="str">'2026-01-01.2100-12-31'</span>: <span class="num">10_000</span>
     },
-    <span style="color: #ce9178;">'gov.irs.deductions.itemized.salt_and_real_estate.cap.SEPARATE'</span>: {
-        <span style="color: #ce9178;">'2026-01-01.2100-12-31'</span>: <span style="color: #b5cea8;">5_000</span>
+    <span class="str">'gov.irs.deductions.itemized.salt_and_real_estate.cap.SEPARATE'</span>: {
+        <span class="str">'2026-01-01.2100-12-31'</span>: <span class="num">5_000</span>
     },
-    <span style="color: #ce9178;">'gov.irs.deductions.itemized.salt_and_real_estate.cap.HEAD_OF_HOUSEHOLD'</span>: {
-        <span style="color: #ce9178;">'2026-01-01.2100-12-31'</span>: <span style="color: #b5cea8;">10_000</span>
+    <span class="str">'gov.irs.deductions.itemized.salt_and_real_estate.cap.HEAD_OF_HOUSEHOLD'</span>: {
+        <span class="str">'2026-01-01.2100-12-31'</span>: <span class="num">10_000</span>
     },
-    <span style="color: #ce9178;">'gov.irs.deductions.itemized.salt_and_real_estate.cap.SURVIVING_SPOUSE'</span>: {
-        <span style="color: #ce9178;">'2026-01-01.2100-12-31'</span>: <span style="color: #b5cea8;">10_000</span>
+    <span class="str">'gov.irs.deductions.itemized.salt_and_real_estate.cap.SURVIVING_SPOUSE'</span>: {
+        <span class="str">'2026-01-01.2100-12-31'</span>: <span class="num">10_000</span>
     },
-}, <span style="color: #ce9178;">'policyengine_us'</span>)
+}, <span class="str">'policyengine_us'</span>)
 
 reformed = Microsimulation(
-    dataset=<span style="color: #ce9178;">f'hf://policyengine/policyengine-us-data/districts/</span><span style="color: #569cd6;">{district}</span><span style="color: #ce9178;">.h5'</span>,
+    dataset=<span class="str">f'hf://policyengine/policyengine-us-data/districts/{district}.h5'</span>,
     reform=reform
 )
 
-<span style="color: #6a9955;"># 3. Calculate impact - MicroSeries handles weights automatically</span>
-baseline_income = baseline.calc(<span style="color: #ce9178;">'household_net_income'</span>, period=<span style="color: #b5cea8;">2026</span>, map_to=<span style="color: #ce9178;">'person'</span>)
-reformed_income = reformed.calc(<span style="color: #ce9178;">'household_net_income'</span>, period=<span style="color: #b5cea8;">2026</span>, map_to=<span style="color: #ce9178;">'person'</span>)
+<span class="cmt"># 3. Calculate impact - MicroSeries handles weights automatically</span>
+baseline_income = baseline.calc(<span class="str">'household_net_income'</span>, period=<span class="num">2026</span>, map_to=<span class="str">'person'</span>)
+reformed_income = reformed.calc(<span class="str">'household_net_income'</span>, period=<span class="num">2026</span>, map_to=<span class="str">'person'</span>)
 change = reformed_income - baseline_income
 
-<span style="color: #6a9955;"># 4. Results</span>
-loser_share = (change &lt; <span style="color: #b5cea8;">0</span>).mean()
+<span class="cmt"># 4. Results</span>
+loser_share = (change &lt; <span class="num">0</span>).mean()
 avg_change = change.mean()
-avg_loss_among_losers = change[change &lt; <span style="color: #b5cea8;">0</span>].mean()
+avg_loss_among_losers = change[change &lt; <span class="num">0</span>].mean()
 total_impact = change.sum()
 
-<span style="color: #dcdcaa;">print</span>(<span style="color: #ce9178;">f"Share who would LOSE: </span><span style="color: #569cd6;">{loser_share:.1%}</span><span style="color: #ce9178;">"</span>)
-<span style="color: #dcdcaa;">print</span>(<span style="color: #ce9178;">f"Average change per person: $</span><span style="color: #569cd6;">{avg_change:,.0f}</span><span style="color: #ce9178;">"</span>)
-<span style="color: #dcdcaa;">print</span>(<span style="color: #ce9178;">f"Average loss among losers: $</span><span style="color: #569cd6;">{avg_loss_among_losers:,.0f}</span><span style="color: #ce9178;">"</span>)
-<span style="color: #dcdcaa;">print</span>(<span style="color: #ce9178;">f"Total fiscal impact: $</span><span style="color: #569cd6;">{total_impact/1e9:,.2f}</span><span style="color: #ce9178;">B"</span>)
+<span class="fn">print</span>(<span class="str">f"Share who would LOSE: {loser_share:.1%}"</span>)
+<span class="fn">print</span>(<span class="str">f"Average change per person: ${avg_change:,.0f}"</span>)
+<span class="fn">print</span>(<span class="str">f"Average loss among losers: ${avg_loss_among_losers:,.0f}"</span>)
+<span class="fn">print</span>(<span class="str">f"Total fiscal impact: ${total_impact/1e9:,.2f}B"</span>)
 
-<span style="color: #6a9955;"># 5. Compare to national</span>
+<span class="cmt"># 5. Compare to national</span>
 national_baseline = Microsimulation()
 national_reformed = Microsimulation(reform=reform)
 
 national_change = (
-    national_reformed.calc(<span style="color: #ce9178;">'household_net_income'</span>, period=<span style="color: #b5cea8;">2026</span>, map_to=<span style="color: #ce9178;">'person'</span>) -
-    national_baseline.calc(<span style="color: #ce9178;">'household_net_income'</span>, period=<span style="color: #b5cea8;">2026</span>, map_to=<span style="color: #ce9178;">'person'</span>)
+    national_reformed.calc(<span class="str">'household_net_income'</span>, period=<span class="num">2026</span>, map_to=<span class="str">'person'</span>) -
+    national_baseline.calc(<span class="str">'household_net_income'</span>, period=<span class="num">2026</span>, map_to=<span class="str">'person'</span>)
 )
 
-<span style="color: #dcdcaa;">print</span>(<span style="color: #ce9178;">f"NY-17 share losing: </span><span style="color: #569cd6;">{loser_share:.1%}</span><span style="color: #ce9178;">"</span>)
-<span style="color: #dcdcaa;">print</span>(<span style="color: #ce9178;">f"National share losing: </span><span style="color: #569cd6;">{(national_change < 0).mean():.1%}</span><span style="color: #ce9178;">"</span>)</code></pre>
+<span class="fn">print</span>(<span class="str">f"NY-17 share losing: {loser_share:.1%}"</span>)
+<span class="fn">print</span>(<span class="str">f"National share losing: {(national_change < 0).mean():.1%}"</span>)</code></pre>
             </details>
-            <p style="margin-top: 1rem;">
-                <strong>Output:</strong>
-            </p>
-            <pre style="background: var(--pe-gray-50); border: 1px solid var(--pe-gray-200); padding: 1rem; border-radius: 8px; font-size: 0.85rem; overflow-x: auto;">Share who would LOSE: 19.1%
+
+            <p style="margin-top: 1rem;"><strong>Output:</strong></p>
+            <pre class="output-block">Share who would LOSE: 19.1%
 Average change per person: $-476
 Average loss among losers: $-2,496
 Total fiscal impact: $-0.28B
@@ -495,96 +736,94 @@ Total fiscal impact: $-0.28B
 NY-17 share losing: 19.1%
 National share losing: 8.0%</pre>
 
-            <details style="margin-top: 1.5rem;">
-                <summary style="cursor: pointer; color: var(--pe-teal-500); font-weight: 500; margin: 1rem 0;">
-                    Code for "Share losing by SALT cap level" chart
-                </summary>
-                <pre style="background: #1e1e1e; color: #d4d4d4; padding: 1.5rem; border-radius: 8px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin-top: 1rem;"><code><span style="color: #c586c0;">import</span> <span style="color: #4ec9b0;">plotly.graph_objects</span> <span style="color: #c586c0;">as</span> go
-<span style="color: #c586c0;">from</span> <span style="color: #4ec9b0;">policyengine_us</span> <span style="color: #c586c0;">import</span> Microsimulation
-<span style="color: #c586c0;">from</span> <span style="color: #4ec9b0;">policyengine_core.reforms</span> <span style="color: #c586c0;">import</span> Reform
+            <details>
+                <summary>Code for "Share losing by SALT cap level" chart</summary>
+                <pre><code><span class="kw">import</span> <span class="mod">plotly.graph_objects</span> <span class="kw">as</span> go
+<span class="kw">from</span> <span class="mod">policyengine_us</span> <span class="kw">import</span> Microsimulation
+<span class="kw">from</span> <span class="mod">policyengine_core.reforms</span> <span class="kw">import</span> Reform
 
-district = <span style="color: #ce9178;">"NY-17"</span>
-cap_levels = [<span style="color: #b5cea8;">0</span>, <span style="color: #b5cea8;">5_000</span>, <span style="color: #b5cea8;">10_000</span>, <span style="color: #b5cea8;">15_000</span>, <span style="color: #b5cea8;">20_000</span>, <span style="color: #b5cea8;">25_000</span>, <span style="color: #b5cea8;">30_000</span>, <span style="color: #b5cea8;">40_000</span>, <span style="color: #b5cea8;">50_000</span>]
+district = <span class="str">"NY-17"</span>
+cap_levels = [<span class="num">0</span>, <span class="num">5_000</span>, <span class="num">10_000</span>, <span class="num">15_000</span>, <span class="num">20_000</span>, <span class="num">25_000</span>, <span class="num">30_000</span>, <span class="num">40_000</span>, <span class="num">50_000</span>]
 
 ny17_results = []
 national_results = []
 
-<span style="color: #c586c0;">for</span> cap <span style="color: #c586c0;">in</span> cap_levels:
-    <span style="color: #6a9955;"># Define reform for this cap level</span>
+<span class="kw">for</span> cap <span class="kw">in</span> cap_levels:
+    <span class="cmt"># Define reform for this cap level</span>
     reform = Reform.from_dict({
-        <span style="color: #ce9178;">'gov.irs.deductions.itemized.salt_and_real_estate.cap.SINGLE'</span>: {
-            <span style="color: #ce9178;">'2026-01-01.2100-12-31'</span>: cap
+        <span class="str">'gov.irs.deductions.itemized.salt_and_real_estate.cap.SINGLE'</span>: {
+            <span class="str">'2026-01-01.2100-12-31'</span>: cap
         },
-        <span style="color: #ce9178;">'gov.irs.deductions.itemized.salt_and_real_estate.cap.JOINT'</span>: {
-            <span style="color: #ce9178;">'2026-01-01.2100-12-31'</span>: cap
+        <span class="str">'gov.irs.deductions.itemized.salt_and_real_estate.cap.JOINT'</span>: {
+            <span class="str">'2026-01-01.2100-12-31'</span>: cap
         },
-        <span style="color: #ce9178;">'gov.irs.deductions.itemized.salt_and_real_estate.cap.SEPARATE'</span>: {
-            <span style="color: #ce9178;">'2026-01-01.2100-12-31'</span>: cap // <span style="color: #b5cea8;">2</span>
+        <span class="str">'gov.irs.deductions.itemized.salt_and_real_estate.cap.SEPARATE'</span>: {
+            <span class="str">'2026-01-01.2100-12-31'</span>: cap // <span class="num">2</span>
         },
-        <span style="color: #ce9178;">'gov.irs.deductions.itemized.salt_and_real_estate.cap.HEAD_OF_HOUSEHOLD'</span>: {
-            <span style="color: #ce9178;">'2026-01-01.2100-12-31'</span>: cap
+        <span class="str">'gov.irs.deductions.itemized.salt_and_real_estate.cap.HEAD_OF_HOUSEHOLD'</span>: {
+            <span class="str">'2026-01-01.2100-12-31'</span>: cap
         },
-        <span style="color: #ce9178;">'gov.irs.deductions.itemized.salt_and_real_estate.cap.SURVIVING_SPOUSE'</span>: {
-            <span style="color: #ce9178;">'2026-01-01.2100-12-31'</span>: cap
+        <span class="str">'gov.irs.deductions.itemized.salt_and_real_estate.cap.SURVIVING_SPOUSE'</span>: {
+            <span class="str">'2026-01-01.2100-12-31'</span>: cap
         },
-    }, <span style="color: #ce9178;">'policyengine_us'</span>)
+    }, <span class="str">'policyengine_us'</span>)
 
-    <span style="color: #6a9955;"># NY-17 district</span>
+    <span class="cmt"># NY-17 district</span>
     baseline_d = Microsimulation(
-        dataset=<span style="color: #ce9178;">f'hf://policyengine/policyengine-us-data/districts/</span><span style="color: #569cd6;">{district}</span><span style="color: #ce9178;">.h5'</span>
+        dataset=<span class="str">f'hf://policyengine/policyengine-us-data/districts/{district}.h5'</span>
     )
     reformed_d = Microsimulation(
-        dataset=<span style="color: #ce9178;">f'hf://policyengine/policyengine-us-data/districts/</span><span style="color: #569cd6;">{district}</span><span style="color: #ce9178;">.h5'</span>,
+        dataset=<span class="str">f'hf://policyengine/policyengine-us-data/districts/{district}.h5'</span>,
         reform=reform
     )
     change_d = (
-        reformed_d.calc(<span style="color: #ce9178;">'household_net_income'</span>, period=<span style="color: #b5cea8;">2026</span>, map_to=<span style="color: #ce9178;">'person'</span>) -
-        baseline_d.calc(<span style="color: #ce9178;">'household_net_income'</span>, period=<span style="color: #b5cea8;">2026</span>, map_to=<span style="color: #ce9178;">'person'</span>)
+        reformed_d.calc(<span class="str">'household_net_income'</span>, period=<span class="num">2026</span>, map_to=<span class="str">'person'</span>) -
+        baseline_d.calc(<span class="str">'household_net_income'</span>, period=<span class="num">2026</span>, map_to=<span class="str">'person'</span>)
     )
-    ny17_results.append(<span style="color: #dcdcaa;">float</span>((change_d &lt; <span style="color: #b5cea8;">0</span>).mean() * <span style="color: #b5cea8;">100</span>))
+    ny17_results.append(<span class="fn">float</span>((change_d &lt; <span class="num">0</span>).mean() * <span class="num">100</span>))
 
-    <span style="color: #6a9955;"># National</span>
+    <span class="cmt"># National</span>
     baseline_n = Microsimulation()
     reformed_n = Microsimulation(reform=reform)
     change_n = (
-        reformed_n.calc(<span style="color: #ce9178;">'household_net_income'</span>, period=<span style="color: #b5cea8;">2026</span>, map_to=<span style="color: #ce9178;">'person'</span>) -
-        baseline_n.calc(<span style="color: #ce9178;">'household_net_income'</span>, period=<span style="color: #b5cea8;">2026</span>, map_to=<span style="color: #ce9178;">'person'</span>)
+        reformed_n.calc(<span class="str">'household_net_income'</span>, period=<span class="num">2026</span>, map_to=<span class="str">'person'</span>) -
+        baseline_n.calc(<span class="str">'household_net_income'</span>, period=<span class="num">2026</span>, map_to=<span class="str">'person'</span>)
     )
-    national_results.append(<span style="color: #dcdcaa;">float</span>((change_n &lt; <span style="color: #b5cea8;">0</span>).mean() * <span style="color: #b5cea8;">100</span>))
+    national_results.append(<span class="fn">float</span>((change_n &lt; <span class="num">0</span>).mean() * <span class="num">100</span>))
 
-<span style="color: #6a9955;"># Create the chart</span>
+<span class="cmt"># Create the chart</span>
 fig = go.Figure()
 
 fig.add_trace(go.Scatter(
-    x=[<span style="color: #ce9178;">f'$</span><span style="color: #569cd6;">{c//1000}</span><span style="color: #ce9178;">k'</span> <span style="color: #c586c0;">for</span> c <span style="color: #c586c0;">in</span> cap_levels],
+    x=[<span class="str">f'${c//1000}k'</span> <span class="kw">for</span> c <span class="kw">in</span> cap_levels],
     y=ny17_results,
-    name=<span style="color: #ce9178;">'NY-17 (Lawler)'</span>,
-    mode=<span style="color: #ce9178;">'lines+markers'</span>,
-    line=<span style="color: #dcdcaa;">dict</span>(color=<span style="color: #ce9178;">'#EF4444'</span>, width=<span style="color: #b5cea8;">3</span>),
-    marker=<span style="color: #dcdcaa;">dict</span>(size=<span style="color: #b5cea8;">8</span>)
+    name=<span class="str">'NY-17 (Lawler)'</span>,
+    mode=<span class="str">'lines+markers'</span>,
+    line=<span class="fn">dict</span>(color=<span class="str">'#EF4444'</span>, width=<span class="num">3</span>),
+    marker=<span class="fn">dict</span>(size=<span class="num">8</span>)
 ))
 
 fig.add_trace(go.Scatter(
-    x=[<span style="color: #ce9178;">f'$</span><span style="color: #569cd6;">{c//1000}</span><span style="color: #ce9178;">k'</span> <span style="color: #c586c0;">for</span> c <span style="color: #c586c0;">in</span> cap_levels],
+    x=[<span class="str">f'${c//1000}k'</span> <span class="kw">for</span> c <span class="kw">in</span> cap_levels],
     y=national_results,
-    name=<span style="color: #ce9178;">'National'</span>,
-    mode=<span style="color: #ce9178;">'lines+markers'</span>,
-    line=<span style="color: #dcdcaa;">dict</span>(color=<span style="color: #ce9178;">'#319795'</span>, width=<span style="color: #b5cea8;">3</span>),
-    marker=<span style="color: #dcdcaa;">dict</span>(size=<span style="color: #b5cea8;">8</span>)
+    name=<span class="str">'National'</span>,
+    mode=<span class="str">'lines+markers'</span>,
+    line=<span class="fn">dict</span>(color=<span class="str">'#319795'</span>, width=<span class="num">3</span>),
+    marker=<span class="fn">dict</span>(size=<span class="num">8</span>)
 ))
 
-<span style="color: #6a9955;"># Add vertical line at $10k</span>
-fig.add_vline(x=<span style="color: #ce9178;">'$10k'</span>, line_dash=<span style="color: #ce9178;">'dot'</span>, line_color=<span style="color: #ce9178;">'gray'</span>,
-              annotation_text=<span style="color: #ce9178;">'Proposed $10k cap'</span>)
+<span class="cmt"># Add vertical line at $10k</span>
+fig.add_vline(x=<span class="str">'$10k'</span>, line_dash=<span class="str">'dot'</span>, line_color=<span class="str">'gray'</span>,
+              annotation_text=<span class="str">'Proposed $10k cap'</span>)
 
 fig.update_layout(
-    title=<span style="color: #ce9178;">'Share losing by SALT cap level'</span>,
-    xaxis_title=<span style="color: #ce9178;">'SALT cap level'</span>,
-    yaxis_title=<span style="color: #ce9178;">'Share who would lose (%)'</span>,
-    yaxis_range=[<span style="color: #b5cea8;">0</span>, <span style="color: #b5cea8;">25</span>],
-    font=<span style="color: #dcdcaa;">dict</span>(family=<span style="color: #ce9178;">'Inter, sans-serif'</span>),
-    plot_bgcolor=<span style="color: #ce9178;">'white'</span>,
-    legend=<span style="color: #dcdcaa;">dict</span>(x=<span style="color: #b5cea8;">0.7</span>, y=<span style="color: #b5cea8;">0.95</span>)
+    title=<span class="str">'Share losing by SALT cap level'</span>,
+    xaxis_title=<span class="str">'SALT cap level'</span>,
+    yaxis_title=<span class="str">'Share who would lose (%)'</span>,
+    yaxis_range=[<span class="num">0</span>, <span class="num">25</span>],
+    font=<span class="fn">dict</span>(family=<span class="str">'Roboto Serif, Georgia, serif'</span>),
+    plot_bgcolor=<span class="str">'white'</span>,
+    legend=<span class="fn">dict</span>(x=<span class="num">0.7</span>, y=<span class="num">0.95</span>)
 )
 
 fig.show()</code></pre>
@@ -593,12 +832,12 @@ fig.show()</code></pre>
     </div>
 
     <footer class="footer">
-        Built with <a href="https://policyengine.org" target="_blank">PolicyEngine</a> |
-        <a href="https://github.com/PolicyEngine/policyengine-us" target="_blank">Open source</a>
+        Built with <a href="https://policyengine.org" target="_blank">PolicyEngine</a> ·
+        <a href="https://github.com/PolicyEngine/salt-cap-ny17" target="_blank">View source</a>
     </footer>
 
     <script>
-        // Actual computed data from PolicyEngine microsimulation
+        // PolicyEngine computed data
         const impactData = {
             0: { ny17: 19.1, national: 9.1, avgLoss: -476, avgLossAmongLosers: -2495, totalImpact: -282 },
             5000: { ny17: 19.1, national: 8.2, avgLoss: -476, avgLossAmongLosers: -2495, totalImpact: -282 },
@@ -611,12 +850,14 @@ fig.show()</code></pre>
             50000: { ny17: 0.0, national: 0.0, avgLoss: 122, avgLossAmongLosers: 0, totalImpact: 72 },
         };
 
-        // Income distribution data for NY-17 at $10k cap
         const incomeData = {
             labels: ["Under $25k", "$25k-$50k", "$50k-$75k", "$75k-$100k", "$100k-$150k", "$150k-$200k", "$200k+"],
             loserPct: [0.0, 0.0, 0.0, 0.0, 0.2, 1.6, 39.7],
             avgLoss: [0, 0, 0, 0, -2, -10, -984]
         };
+
+        // Chart font config using PolicyEngine design system
+        const chartFont = { family: 'Roboto Serif, Georgia, serif', color: '#344054' };
 
         function createPeopleGrid(containerId, loserCount) {
             const container = document.getElementById(containerId);
@@ -630,68 +871,48 @@ fig.show()</code></pre>
 
         function formatCurrency(val) {
             if (val >= 0) return '$' + val.toLocaleString();
-            return '-$' + Math.abs(val).toLocaleString();
+            return '−$' + Math.abs(val).toLocaleString();
         }
 
         function updateDisplay(cap) {
-            // Find closest data point
             const caps = Object.keys(impactData).map(Number).sort((a, b) => a - b);
-            let closestCap = caps[0];
-            for (const c of caps) {
-                if (Math.abs(c - cap) < Math.abs(closestCap - cap)) {
-                    closestCap = c;
-                }
-            }
+            let closestCap = caps.reduce((prev, curr) =>
+                Math.abs(curr - cap) < Math.abs(prev - cap) ? curr : prev
+            );
 
             const data = impactData[closestCap];
             const ratio = data.national > 0 ? (data.ny17 / data.national).toFixed(1) : 'N/A';
 
-            // Update header display
             document.getElementById('cap-display').textContent = '$' + cap.toLocaleString();
-
-            // Update main highlight
-            if (data.ny17 > 0) {
-                document.getElementById('main-highlight').textContent = data.ny17.toFixed(1) + '% would lose money';
-                document.getElementById('main-highlight').style.background = '#FEE2E2';
-                document.getElementById('main-highlight').style.color = '#EF4444';
-            } else {
-                document.getElementById('main-highlight').textContent = 'No losers at this cap level';
-                document.getElementById('main-highlight').style.background = '#D1FAE5';
-                document.getElementById('main-highlight').style.color = '#059669';
-            }
-
-            // Update stats
+            document.getElementById('main-stat').textContent = data.ny17.toFixed(1) + '%';
             document.getElementById('loser-share').textContent = data.ny17.toFixed(1) + '%';
             document.getElementById('loser-context').textContent =
-                data.national > 0 ? `vs ${data.national.toFixed(1)}% nationally (${ratio}x higher)` : 'Same as national';
+                data.national > 0 ? `vs ${data.national.toFixed(1)}% nationally (${ratio}× higher)` : 'Same as national';
 
             document.getElementById('avg-loss').textContent = formatCurrency(data.avgLoss);
-            document.getElementById('avg-loss').className = 'stat-value ' + (data.avgLoss < 0 ? 'negative' : 'teal');
+            document.getElementById('avg-loss').className = 'stat-value ' + (data.avgLoss < 0 ? 'negative' : 'positive');
 
             document.getElementById('avg-loss-losers').textContent = formatCurrency(data.avgLossAmongLosers);
 
             document.getElementById('total-impact').textContent = formatCurrency(data.totalImpact) + 'M';
-            document.getElementById('total-impact').className = 'stat-value ' + (data.totalImpact < 0 ? 'negative' : 'teal');
+            document.getElementById('total-impact').className = 'stat-value ' + (data.totalImpact < 0 ? 'negative' : 'positive');
 
-            // Update counts
             document.getElementById('ny17-count').textContent = Math.round(data.ny17);
             document.getElementById('national-count').textContent = Math.round(data.national);
 
-            // Update grids
             createPeopleGrid('ny17-grid', Math.round(data.ny17));
             createPeopleGrid('national-grid', Math.round(data.national));
         }
 
-        // Initialize slider
+        // Initialize
         const slider = document.getElementById('salt-slider');
         slider.addEventListener('input', (e) => updateDisplay(parseInt(e.target.value)));
 
-        // Initialize grids
         createPeopleGrid('ny17-grid', 19);
         createPeopleGrid('national-grid', 8);
 
-        // Create income chart
-        const incomeTrace = {
+        // Income chart
+        Plotly.newPlot('income-chart', [{
             x: incomeData.labels,
             y: incomeData.loserPct,
             type: 'bar',
@@ -701,19 +922,11 @@ fig.show()</code></pre>
             text: incomeData.loserPct.map(v => v > 0 ? v.toFixed(1) + '%' : ''),
             textposition: 'outside',
             hovertemplate: '<b>%{x}</b><br>%{y:.1f}% would lose<extra></extra>'
-        };
-
-        const incomeLayout = {
-            font: { family: 'Inter, sans-serif' },
+        }], {
+            font: chartFont,
             margin: { t: 30, r: 20, b: 80, l: 60 },
-            xaxis: {
-                title: 'Household income',
-                tickangle: -30
-            },
-            yaxis: {
-                title: 'Share who would lose (%)',
-                range: [0, 50]
-            },
+            xaxis: { title: 'Household income', tickangle: -30 },
+            yaxis: { title: 'Share who would lose (%)', range: [0, 50] },
             plot_bgcolor: 'white',
             paper_bgcolor: 'white',
             annotations: [{
@@ -726,75 +939,51 @@ fig.show()</code></pre>
                 ay: -40,
                 font: { size: 11 }
             }]
-        };
+        }, { responsive: true, displayModeBar: false });
 
-        Plotly.newPlot('income-chart', [incomeTrace], incomeLayout, {
-            responsive: true,
-            displayModeBar: false
-        });
-
-        // Create cap comparison chart
+        // Cap comparison chart
         const capLevels = Object.keys(impactData).map(Number).sort((a, b) => a - b);
-        const ny17Values = capLevels.map(c => impactData[c].ny17);
-        const nationalValues = capLevels.map(c => impactData[c].national);
 
-        const ny17Trace = {
+        Plotly.newPlot('cap-chart', [{
             x: capLevels.map(c => '$' + (c/1000) + 'k'),
-            y: ny17Values,
+            y: capLevels.map(c => impactData[c].ny17),
             name: 'NY-17 (Lawler)',
             type: 'scatter',
             mode: 'lines+markers',
             line: { color: '#EF4444', width: 3 },
             marker: { size: 8 }
-        };
-
-        const nationalTrace = {
+        }, {
             x: capLevels.map(c => '$' + (c/1000) + 'k'),
-            y: nationalValues,
+            y: capLevels.map(c => impactData[c].national),
             name: 'National',
             type: 'scatter',
             mode: 'lines+markers',
             line: { color: '#319795', width: 3 },
             marker: { size: 8 }
-        };
-
-        const capLayout = {
-            font: { family: 'Inter, sans-serif' },
+        }], {
+            font: chartFont,
             margin: { t: 30, r: 20, b: 60, l: 60 },
-            xaxis: {
-                title: 'SALT cap level'
-            },
-            yaxis: {
-                title: 'Share who would lose (%)',
-                range: [0, 25]
-            },
+            xaxis: { title: 'SALT cap level' },
+            yaxis: { title: 'Share who would lose (%)', range: [0, 25] },
             plot_bgcolor: 'white',
             paper_bgcolor: 'white',
-            legend: {
-                x: 0.7,
-                y: 0.95
-            },
+            legend: { x: 0.7, y: 0.95 },
             shapes: [{
                 type: 'line',
                 x0: '$10k',
                 x1: '$10k',
                 y0: 0,
                 y1: 25,
-                line: { color: '#9CA3AF', width: 2, dash: 'dot' }
+                line: { color: '#94A3B8', width: 2, dash: 'dot' }
             }],
             annotations: [{
                 x: '$10k',
                 y: 22,
                 text: 'Proposed<br>$10k cap',
                 showarrow: false,
-                font: { size: 10, color: '#6B7280' }
+                font: { size: 10, color: '#64748B' }
             }]
-        };
-
-        Plotly.newPlot('cap-chart', [ny17Trace, nationalTrace], capLayout, {
-            responsive: true,
-            displayModeBar: false
-        });
+        }, { responsive: true, displayModeBar: false });
     </script>
 </body>
 </html>
