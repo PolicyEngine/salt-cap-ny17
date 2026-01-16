@@ -823,7 +823,7 @@ fig.update_layout(
     title=<span class="str">'Share losing by SALT cap level'</span>,
     xaxis_title=<span class="str">'SALT cap level'</span>,
     yaxis_title=<span class="str">'Share who would lose (%)'</span>,
-    yaxis_range=[<span class="num">0</span>, <span class="num">25</span>],
+    yaxis_range=[<span class="num">0</span>, <span class="num">40</span>],
     font=<span class="fn">dict</span>(family=<span class="str">'Roboto Serif, Georgia, serif'</span>),
     plot_bgcolor=<span class="str">'white'</span>,
     legend=<span class="fn">dict</span>(x=<span class="num">0.7</span>, y=<span class="num">0.95</span>)
@@ -985,7 +985,7 @@ fig.show()</code></pre>
             font: chartFont,
             margin: { t: 30, r: 20, b: 60, l: 60 },
             xaxis: { title: 'SALT cap level' },
-            yaxis: { title: 'Share who would lose (%)', range: [0, 25] },
+            yaxis: { title: 'Share who would lose (%)', range: [0, 40] },
             plot_bgcolor: 'white',
             paper_bgcolor: 'white',
             legend: { x: 0.7, y: 0.95 },
@@ -994,12 +994,12 @@ fig.show()</code></pre>
                 x0: '$10k',
                 x1: '$10k',
                 y0: 0,
-                y1: 25,
+                y1: 40,
                 line: { color: '#94A3B8', width: 2, dash: 'dot' }
             }],
             annotations: [{
                 x: '$10k',
-                y: 22,
+                y: 36,
                 text: 'Proposed<br>$10k cap',
                 showarrow: false,
                 font: { size: 10, color: '#64748B' }
