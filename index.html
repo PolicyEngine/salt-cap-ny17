@@ -4,13 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SALT Cap Impact in NY-17 | PolicyEngine</title>
+    <meta name="description" content="Analysis of how cutting the SALT deduction cap to $10,000 would affect Rep. Mike Lawler's NY-17 constituents. 19.1% of NY-17 residents would lose money, 2.4x the national average.">
+    <link rel="canonical" href="https://policyengine.github.io/salt-cap-ny17/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="SALT Cap Impact in NY-17 | PolicyEngine">
+    <meta property="og:description" content="How cutting the SALT deduction cap to $10,000 would affect Rep. Mike Lawler's NY-17 constituents. 19.1% of residents would lose money — 2.4x the national average.">
+    <meta property="og:url" content="https://policyengine.github.io/salt-cap-ny17/">
+    <meta property="og:site_name" content="PolicyEngine">
+    <meta property="og:image" content="https://raw.githubusercontent.com/PolicyEngine/policyengine-app/master/src/images/logos/policyengine/teal.png">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="SALT Cap Impact in NY-17 | PolicyEngine">
+    <meta name="twitter:description" content="19.1% of NY-17 residents would lose money if the SALT cap is cut to $10,000 — 2.4x the national rate. Interactive analysis by PolicyEngine.">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/PolicyEngine/policyengine-app/master/src/images/logos/policyengine/teal.png">
+    <meta name="twitter:site" content="@ThePolicyEngine">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/PolicyEngine/policyengine-app/master/src/images/logos/policyengine/teal.png">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "SALT Cap Impact in NY-17",
+      "description": "Analysis of how cutting the SALT deduction cap to $10,000 would affect Rep. Mike Lawler's NY-17 constituents compared to the national average.",
+      "author": {
+        "@type": "Organization",
+        "name": "PolicyEngine",
+        "url": "https://policyengine.org"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "PolicyEngine",
+        "url": "https://policyengine.org",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://raw.githubusercontent.com/PolicyEngine/policyengine-app/master/src/images/logos/policyengine/teal.png"
+        }
+      },
+      "mainEntityOfPage": "https://policyengine.github.io/salt-cap-ny17/",
+      "about": {
+        "@type": "GovernmentService",
+        "name": "SALT Deduction Cap Policy",
+        "description": "State and Local Tax deduction cap impact analysis for Congressional District NY-17"
+      }
+    }
+    </script>
 
     <!-- PolicyEngine Design System Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.plot.ly" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500&family=Roboto+Serif:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <script defer src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
 
     <!-- Google Analytics (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2YHG89FY0N"></script>
@@ -572,6 +624,19 @@
             text-decoration: underline;
         }
 
+        /* Screen reader only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .hero {
@@ -611,7 +676,7 @@
 </head>
 <body>
     <header class="header">
-        <img src="https://raw.githubusercontent.com/PolicyEngine/policyengine-app/master/src/images/logos/policyengine/teal.png" alt="PolicyEngine">
+        <img src="https://raw.githubusercontent.com/PolicyEngine/policyengine-app/master/src/images/logos/policyengine/teal.png" alt="PolicyEngine logo - return to homepage" width="28" height="28">
         <span class="header-text">Policy Impact Analysis</span>
     </header>
 
@@ -627,7 +692,7 @@
         </div>
     </section>
 
-    <div class="container">
+    <main class="container" role="main">
         <section class="stats-grid">
             <div class="stat-card featured">
                 <div class="stat-label">Share who would lose</div>
@@ -656,7 +721,8 @@
                 <span class="slider-title">Adjust SALT cap level</span>
                 <span class="slider-value" id="cap-display">$10,000</span>
             </div>
-            <input type="range" id="salt-slider" min="0" max="40400" step="5000" value="10000">
+            <label for="salt-slider" class="sr-only">Adjust SALT cap level</label>
+            <input type="range" id="salt-slider" min="0" max="40400" step="5000" value="10000" aria-label="Adjust SALT cap level" aria-valuemin="0" aria-valuemax="40400" aria-valuenow="10000" aria-valuetext="$10,000">
             <div class="range-labels">
                 <span>$0 (eliminate)</span>
                 <span>$40,400 (2026 baseline)</span>
@@ -693,7 +759,7 @@
         <section class="methodology">
             <h3>Methodology</h3>
             <p>
-                This analysis uses <a href="https://policyengine.org" target="_blank">PolicyEngine's</a>
+                This analysis uses <a href="https://policyengine.org" target="_blank" rel="noopener">PolicyEngine's</a>
                 microsimulation model with district-level data for NY-17. The model calculates how
                 reducing the SALT (State and Local Tax) deduction cap from the 2026 baseline of ~$40,400
                 to $10,000 would affect household net income.
@@ -704,7 +770,7 @@
                 indexed for inflation.
             </p>
             <p>
-                <a href="https://policyengine.org/us/policy?focus=gov.irs.deductions.itemized.salt_and_real_estate.cap" target="_blank">
+                <a href="https://policyengine.org/us/policy?focus=gov.irs.deductions.itemized.salt_and_real_estate.cap" target="_blank" rel="noopener">
                     Explore this policy on PolicyEngine →
                 </a>
             </p>
@@ -883,11 +949,11 @@ fig.update_layout(
 fig.show()</code></pre>
             </details>
         </section>
-    </div>
+    </main>
 
     <footer class="footer">
-        Built with <a href="https://policyengine.org" target="_blank">PolicyEngine</a> ·
-        <a href="https://github.com/PolicyEngine/salt-cap-ny17" target="_blank">View source</a>
+        Built with <a href="https://policyengine.org" target="_blank" rel="noopener">PolicyEngine</a> ·
+        <a href="https://github.com/PolicyEngine/salt-cap-ny17" target="_blank" rel="noopener">View source</a>
     </footer>
 
     <script>
@@ -950,6 +1016,8 @@ fig.show()</code></pre>
             const ratio = data.national > 0 ? (data.ny17 / data.national).toFixed(1) : 'N/A';
 
             document.getElementById('cap-display').textContent = '$' + cap.toLocaleString();
+            document.getElementById('salt-slider').setAttribute('aria-valuenow', cap);
+            document.getElementById('salt-slider').setAttribute('aria-valuetext', '$' + cap.toLocaleString());
             document.getElementById('main-stat').textContent = data.ny17.toFixed(1) + '%';
             document.getElementById('loser-share').textContent = data.ny17.toFixed(1) + '%';
             document.getElementById('loser-context').textContent =
@@ -999,22 +1067,23 @@ fig.show()</code></pre>
             }, { responsive: true, displayModeBar: false });
         }
 
-        // Initialize
-        const slider = document.getElementById('salt-slider');
-        slider.addEventListener('input', (e) => {
-            const cap = parseInt(e.target.value);
-            updateDisplay(cap);
-            updateIncomeChart(cap);
-        });
+        // Initialize (wait for Plotly to load since it uses defer)
+        function initCharts() {
+            const slider = document.getElementById('salt-slider');
+            slider.addEventListener('input', (e) => {
+                const cap = parseInt(e.target.value);
+                updateDisplay(cap);
+                updateIncomeChart(cap);
+            });
 
-        createPeopleGrid('ny17-grid', 19);
-        createPeopleGrid('national-grid', 8);
+            createPeopleGrid('ny17-grid', 19);
+            createPeopleGrid('national-grid', 8);
 
-        // Initial income chart
-        updateIncomeChart(10000);
+            // Initial income chart
+            updateIncomeChart(10000);
 
-        // Cap comparison chart
-        const capLevels = Object.keys(impactData).map(Number).sort((a, b) => a - b);
+            // Cap comparison chart
+            const capLevels = Object.keys(impactData).map(Number).sort((a, b) => a - b);
 
         Plotly.newPlot('cap-chart', [{
             x: capLevels.map(c => '$' + (c/1000) + 'k'),
@@ -1056,6 +1125,28 @@ fig.show()</code></pre>
                 font: { size: 10, color: '#64748B' }
             }]
         }, { responsive: true, displayModeBar: false });
+        }
+
+        // Wait for Plotly (loaded with defer) before initializing charts
+        if (typeof Plotly !== 'undefined') {
+            initCharts();
+        } else {
+            window.addEventListener('DOMContentLoaded', function checkPlotly() {
+                if (typeof Plotly !== 'undefined') {
+                    initCharts();
+                } else {
+                    // Plotly defer script may not have executed yet; poll briefly
+                    var attempts = 0;
+                    var interval = setInterval(function() {
+                        attempts++;
+                        if (typeof Plotly !== 'undefined' || attempts > 50) {
+                            clearInterval(interval);
+                            if (typeof Plotly !== 'undefined') initCharts();
+                        }
+                    }, 100);
+                }
+            });
+        }
     </script>
 </body>
 </html>
